@@ -1,0 +1,26 @@
+{
+  "name": "doctor-profile",
+  "version": "1.0.0",
+  "description": "Doctor profile application",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest --runInBand test"
+  },
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.14"
+  },
+  "devDependencies": {
+    "jest": "^27.4.5",
+    "mongodb-memory-server": "^7.6.3"
+  },
+  "author": "",
+  "license": "ISC",
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "./test/db-handler.js"
+    ]
+  }
+}
