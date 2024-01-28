@@ -32,4 +32,43 @@ describe('Doctor CRUD operations', () => {
   });
 
   // Add more tests for edit, delete, add patients, view patients, and reviews
-});
+  });
+
+describe('/doctors/:id endpoint', () => {
+  let token;
+  beforeEach(() => {
+    return request(app)
+      .post('/auth')
+      .send({ username: 'johndoe', password: 'password123' })
+      .then((res) => { token = res.body.token; });
+  });
+
+  test('GET /doctors/:id - Returns a single doctor by id', async () => {
+    const doctor = await Doctor.findByIdAndAdd({ _id: mongoose.Types.ObjectId() });
+    const response = await request(app)
+      .get(`/doctors/${doctor._id}`)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toEqual(200);
+    expect(response.body.firstName).toEqual(doctor.firstName);
+  });
+
+  test('GET /doctors/:id - Returns 404 if no doctor with given id', async () => {
+    const response = await request(app)
+      .get('/doctors/123456789')
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toEqual(404);
+  });
+
+  test('PUT /doctors/:id - Updates a doctors information', async () => {
+    const originalDoctor = await Doctor.create({ firstName: 'John', lastName: 'Doe' });
+    const updatedDoctor = { firstName: 'Jane', specialty: 'Neurology' };
+    const response = await request(app)
+      .put(`/doctors/${originalDoctor._id}`)
+      .send(updatedDoctor)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+
+    expect(response.body.firstName).toEqual(updatedDoctor.firstName); 
+})})

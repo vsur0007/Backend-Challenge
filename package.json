@@ -12,7 +12,7 @@
     "mongoose": "^6.2.14"
   },
   "devDependencies": {
-    "jest": "^27.4.5",
+    "jest": "^27.5.1",
     "mongodb-memory-server": "^7.6.3"
   },
   "author": "",

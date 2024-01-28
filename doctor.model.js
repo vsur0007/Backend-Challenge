@@ -1,3 +1,5 @@
+// models/doctorSchema.js
+
 const mongoose = require('mongoose');
 
 const doctorSchema = new mongoose.Schema({
@@ -5,9 +7,23 @@ const doctorSchema = new mongoose.Schema({
   lastName: { type: String, required: true },
   location: { type: String, required: true },
   specialty: { type: String, required: true },
-  experiences: [{ type: String }],
-  educations: [{ type: String }],
-  reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+  experiences: [{
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
+  }],
+  educations: [{
+    institution: { type: String, required: true },
+    degree: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
+  }],
+  reviews: [{
+    patientName: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
+  }],
   patients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Patient' }],
 });
 
